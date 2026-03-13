@@ -120,7 +120,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 </table>
             </div>
             <div className="block">
-                <button onClick={() => window.location.reload()}>Refresh</button>
+                <button onClick={() => window.location.reload()}>Play Again</button>
             </div>
             <div className="block">{message}</div>
         </div>
