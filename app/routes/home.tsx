@@ -125,7 +125,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
             <div className="block">
                 <button onClick={() => window.location.reload()}>Play Again</button>
             </div>
-            <div className="block">{message}</div>
+            <div className="block">{message ? message : "Find all the pairs to win"}</div>
         </div>
     );
 }
