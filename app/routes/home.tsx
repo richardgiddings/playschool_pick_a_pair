@@ -40,6 +40,7 @@ export async function clientLoader() {
     let currentlyClicked = Array(height*width).fill(0); // stores position of clicked tiles
     let index = 0; // for assigning keys
 
+
     return {ranNums, height, width, tilesClicked, matches, currentlyClicked, index};
 }
 
@@ -49,6 +50,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
     let {ranNums, height, width, tilesClicked, matches, currentlyClicked, index} = loaderData;
     const [canClickMore, setCanClickMore] = useState(true);
     const [message, setMessage] = useState("");
+    const [attempts, setAttempts] = useState(0);
 
     // get a row at a time of length width
     const arrayChunk = (arr: any, n: number) => {
@@ -94,6 +96,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 setCanClickMore(false);
                 setMessage("");
             }
+            setAttempts(attempts+1);
         }
         else {
             setCanClickMore(true);
@@ -102,7 +105,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
 
         // Have we won?
         if (matches.length === (width * height)) {
-            setMessage("Congratulations!!!!");
+            setMessage("Congratulations!! It took " + attempts+ " attempts.");
         }
   }
 
@@ -125,7 +128,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
             <div className="block">
                 <button onClick={() => window.location.reload()}>Play Again</button>
             </div>
-            <div className="block">{message ? message : "Find all the pairs to win"}</div>
+            <div className="block">{message ? message : "Find all the pairs to win. " + attempts + " attempts so far."}</div>
         </div>
     );
 }
