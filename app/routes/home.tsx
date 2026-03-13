@@ -15,8 +15,8 @@ export function meta({}: Route.MetaArgs) {
 export async function clientLoader() {
 
     // width * height must be even
-    const height = 4;
-    const width = 4;
+    const height = 2;
+    const width = 2;
     const numbers = (height * width) / 2 
 
     // create array with numbers twice
@@ -97,6 +97,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 setMessage("");
             }
             setAttempts(attempts+1);
+            console.log("attempts: " + attempts);
         }
         else {
             setCanClickMore(true);
@@ -105,7 +106,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
 
         // Have we won?
         if (matches.length === (width * height)) {
-            setMessage("Congratulations!! It took " + attempts+ " attempts.");
+            setMessage("Congratulations!!!!");
         }
   }
 
@@ -128,7 +129,8 @@ export default function Home({loaderData}: Route.ComponentProps) {
             <div className="block">
                 <button onClick={() => window.location.reload()}>Play Again</button>
             </div>
-            <div className="block">{message ? message : "Find all the pairs to win. " + attempts + " attempts so far."}</div>
+            <div className="block">{message ? message : "Find all the pairs to win."}</div>
+            <div className="block">{attempts + " attempt(s)"}</div>
         </div>
     );
 }
