@@ -83,18 +83,21 @@ export default function Home({loaderData}: Route.ComponentProps) {
             if(tilesClicked[0].value === tilesClicked[1].value) {
                 matches.push(tilesClicked[0].key);
                 matches.push(tilesClicked[1].key);
+                setMessage("Found a pair :)");
 
                 // reset
                 tilesClicked.length = 0;
                 currentlyClicked.fill(0);
-                setCanClickMore(true);
+                setCanClickMore(true);                
             }
             else {
                 setCanClickMore(false);
+                setMessage("");
             }
         }
         else {
             setCanClickMore(true);
+            setMessage("");
         }
 
         // Have we won?

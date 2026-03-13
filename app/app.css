@@ -46,6 +46,9 @@ table {
 .tile-show {
     background-color: white;
 }
+.tile-match {
+    background-color: green;
+}
 
 button {
     background-color: #EA4C89;
