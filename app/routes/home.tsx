@@ -91,14 +91,12 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 tilesClicked.length = 0;
                 currentlyClicked.fill(0);
                 setCanClickMore(true);
-                //setRefresh(!refresh);
             }
             else {
                 setCanClickMore(false);
                 setMessage("");
             }
             setAttempts(attempts+1);
-            console.log("attempts: " + attempts);
         }
         else {
             setCanClickMore(true);
