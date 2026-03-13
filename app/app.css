@@ -42,12 +42,15 @@ table {
 
 .tile-hidden {
     background-color: #348ceb;
+    color: #348ceb;
 }
 .tile-show {
     background-color: white;
+    color: black;
 }
 .tile-match {
     background-color: #84d95d;
+    color: black;
 }
 
 button {
