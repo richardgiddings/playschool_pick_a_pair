@@ -90,7 +90,8 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 // reset
                 tilesClicked.length = 0;
                 currentlyClicked.fill(0);
-                setCanClickMore(true);                
+                setCanClickMore(true);
+                //setRefresh(!refresh);
             }
             else {
                 setCanClickMore(false);
@@ -119,7 +120,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
                         { arrayChunk([...ranNums], width).map((row, i) => (
                         <tr key={i}>
                             {row.map((col: number, i: number) => (
-                            <td key={index}><Tile key={index++} tileProps={{ tileIndex: index, value: col, matches: matches, canClickMore: canClickMore }} tileClicked={tileClicked}/></td>
+                            <td key={index}><Tile key={index++} matches={matches} tileProps={{ tileIndex: index, value: col, canClickMore: canClickMore }} tileClicked={tileClicked}/></td>
                             ))}
                         </tr>
                         ))}

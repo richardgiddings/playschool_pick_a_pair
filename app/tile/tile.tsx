@@ -4,7 +4,7 @@ export function Tile(props: any) {
 
     const value = props.tileProps.value;
     const tileIndex = props.tileProps.tileIndex;
-    const matches = props.tileProps.matches;
+    const matches = props.matches;
     const canClickMore = props.tileProps.canClickMore;
 
     const [show, setShow] = useState(false);
@@ -17,7 +17,7 @@ export function Tile(props: any) {
     }
 
     return (
-        <div className={show ? 'tile tile-show': 'tile tile-hidden'} 
+        <div className={show ? (matches.includes(tileIndex) ? 'tile tile-match': 'tile tile-show'): 'tile tile-hidden'} 
             onClick={() => {
                 if(!matches.includes(tileIndex)) {
                     clicked(tileIndex, value) 
