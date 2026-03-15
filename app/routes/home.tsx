@@ -60,22 +60,25 @@ export default function Home({loaderData}: Route.ComponentProps) {
         return chunks;
     };
 
+    // reset a tile after a wrong guess
+    const tileReset = (keyToReset: number) => {
+        setCanClickMore(true);
+        currentlyClicked[keyToReset] = 0;
+        for(let i=0; i<tilesClicked.length; i++) { 
+            if(tilesClicked[i].key === keyToReset) {
+                tilesClicked.splice(i, 1);
+            }
+        }
+    }
+
     const tileClicked = (keyval: any) => {
 
         if(matches.includes(keyval.key)) {
             return
         }
         
-        if (currentlyClicked[keyval.key] == 1) {
-            currentlyClicked[keyval.key] = 0;
-            if(tilesClicked[0].key === keyval.key) {
-                tilesClicked.splice(0, 1);
-            }
-            else {
-                tilesClicked.splice(1, 1);
-            }
-        }
-        else if (currentlyClicked[keyval.key] == 0 && tilesClicked.length < 2) {
+        // mark a tile as clicked
+        if(currentlyClicked[keyval.key] == 0 && tilesClicked.length < 2) {
             currentlyClicked[keyval.key] = 1
             tilesClicked.push(keyval);
         }
@@ -118,7 +121,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
                         { arrayChunk([...ranNums], width).map((row, i) => (
                         <tr key={i}>
                             {row.map((col: number, i: number) => (
-                            <td key={index}><Tile key={index++} matches={matches} tileProps={{ tileIndex: index, value: col, canClickMore: canClickMore }} tileClicked={tileClicked}/></td>
+                            <td key={index}><Tile key={index++} matches={matches} canClickMore={canClickMore} tileProps={{ tileIndex: index, value: col }} tileClicked={tileClicked} tileReset={tileReset} /></td>
                             ))}
                         </tr>
                         ))}
