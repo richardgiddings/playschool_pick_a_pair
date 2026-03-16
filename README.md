@@ -2,7 +2,11 @@
 
 ## Introduction
 
-A game of matching tiles. Find all the matches to win
+A game of matching tiles. Find all the matches to win.
+
+Features:
+- Choose from a 4x4 or a 6x6 board
+- Shows how many attempts you took
 
 ## Screenshots
 
