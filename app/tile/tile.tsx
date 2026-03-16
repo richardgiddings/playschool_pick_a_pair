@@ -25,19 +25,16 @@ export function Tile(props: any) {
 
     // clicking of a tile
     const clicked = (key: any, value: any) => {
-        if(canClickMore) {
+        if(canClickMore && !matches.includes(tileIndex)) {
             props.tileClicked({key: key, value: value});
             setShow(!show);
         }
     }
 
     return (
-        <div id={tileIndex} className={show ? (matches.includes(tileIndex) ? 'tile tile-match': 'tile tile-show'): 'tile tile-hidden'} 
-            onClick={() => {
-                if(!matches.includes(tileIndex)) {
-                    clicked(tileIndex, value) 
-                }
-            }}>
+        <div id={tileIndex} 
+             className={show ? (matches.includes(tileIndex) ? 'tile tile-match': 'tile tile-show'): 'tile tile-hidden'} 
+             onClick={() => clicked(tileIndex, value)}>
             {show ? value: ""}
         </div>
     );

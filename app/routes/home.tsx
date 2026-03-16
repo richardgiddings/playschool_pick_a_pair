@@ -47,7 +47,6 @@ export async function clientLoader() {
     let currentlyClicked = Array(height*width).fill(0); // stores position of clicked tiles
     let index = 0; // for assigning keys
 
-
     return {ranNums, height, width, tilesClicked, matches, currentlyClicked, index};
 }
 
@@ -148,7 +147,14 @@ export default function Home({loaderData}: Route.ComponentProps) {
                         { arrayChunk([...ranNums], width).map((row, i) => (
                         <tr key={i}>
                             {row.map((col: number, i: number) => (
-                            <td key={index}><Tile key={index++} matches={matches} canClickMore={canClickMore} tileProps={{ tileIndex: index, value: col }} tileClicked={tileClicked} tileReset={tileReset} /></td>
+                            <td key={index}>
+                                <Tile key={index++} 
+                                      matches={matches} 
+                                      canClickMore={canClickMore} 
+                                      tileProps={{ tileIndex: index, value: col }} 
+                                      tileClicked={tileClicked} 
+                                      tileReset={tileReset} />
+                            </td>
                             ))}
                         </tr>
                         ))}
