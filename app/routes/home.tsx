@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 import { Tile } from "../tile/tile";
 
 import { useState } from 'react';
-
+import { Form } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -14,9 +14,16 @@ export function meta({}: Route.MetaArgs) {
 
 export async function clientLoader() {
 
+    let height_choice = localStorage.getItem("height");
+    let width_choice = localStorage.getItem("width");
+
     // width * height must be even
-    const height = 4;
-    const width = 4;
+    var height = 4;
+    var width = 4;
+    if(height_choice != null && width_choice != null) {
+        height = Number(height_choice)
+        width = Number(width_choice)
+    }
     const numbers = (height * width) / 2 
 
     // create array with numbers twice
@@ -42,6 +49,26 @@ export async function clientLoader() {
 
 
     return {ranNums, height, width, tilesClicked, matches, currentlyClicked, index};
+}
+
+
+export async function clientAction({
+  request,
+}: Route.ClientActionArgs) {
+
+    let formData = await request.formData();
+    let action = formData.get("action");
+
+    if(action === "size6") {
+        localStorage.setItem("height", "6");
+        localStorage.setItem("width", "6");
+    }
+    else {
+        localStorage.setItem("height", "4");
+        localStorage.setItem("width", "4");
+    }
+
+    window.location.reload();
 }
 
 
@@ -129,7 +156,10 @@ export default function Home({loaderData}: Route.ComponentProps) {
                 </table>
             </div>
             <div className="block">
-                <button onClick={() => window.location.reload()}>Reset Game</button>
+                <Form method="post">
+                    <button type="submit" name="action" value="size4">Play 4x4</button>
+                    <button type="submit" name="action" value="size6">Play 6x6</button>
+                </Form>
             </div>
             <div className="block">{message ? message : "Find all the pairs to win."}</div>
             <div className="block">{attempts + " attempt(s)"}</div>

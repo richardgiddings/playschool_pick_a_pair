@@ -20,7 +20,7 @@ A game of matching tiles. Find all the matches to win
 
 ## Possible improvements
 
-- option to change board size
+...
 
 ## Getting Started
 
