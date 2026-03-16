@@ -12,7 +12,9 @@ Features:
 
 ### The board
 
-![The board](screenshots/the_board.png?raw=true)
+![The 4x4 board](screenshots/the_board4x4.png?raw=true)
+
+![The 6x6 board](screenshots/the_board6x6.png?raw=true)
 
 ### Found a pair
 
