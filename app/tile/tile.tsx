@@ -13,7 +13,7 @@ export function Tile(props: any) {
     useEffect(() => {
         let timer = setTimeout(function() {
             if(show && !matches.includes(tileIndex)) {
-                const elem = document.getElementById(tileIndex)!.className = 'tile tile-hidden';
+                document.getElementById(tileIndex)!.className = 'tile tile-hidden';
                 setShow(!show);
                 props.tileReset(tileIndex);
             } 
