@@ -25,7 +25,7 @@ export function Tile(props: any) {
 
     // clicking of a tile
     const clicked = (key: any, value: any) => {
-        if(canClickMore && !matches.includes(tileIndex)) {
+        if(!show && canClickMore && !matches.includes(tileIndex)) {
             props.tileClicked({key: key, value: value});
             setShow(!show);
         }
