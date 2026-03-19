@@ -6,8 +6,8 @@ import { Form } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
     return [
-        { title: "Playschool pick a pair" },
-        { name: "description", content: "Playschool pick a pair game" },
+        { title: "Pick a Pair" },
+        { name: "description", content: "Match all the pairs to win the game." },
     ];
 }
 
