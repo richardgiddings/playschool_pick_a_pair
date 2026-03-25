@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
-import { Tile } from "../tile/tile";
+import { Tile } from "../components/tile";
+import Timer from "../components/timer";
 
 import { useState } from 'react';
 import { Form } from 'react-router';
@@ -26,6 +27,11 @@ export async function clientLoader() {
     }
     const numbers = (height * width) / 2 
 
+    let showtimer = localStorage.getItem("showtimer");
+    if(showtimer == null) {
+        showtimer = "none";
+    }
+
     // create array with numbers twice
     var numsOne = Array.from({length: numbers}, (e, i)=> i);
     var numsTwo = Array.from({length: numbers}, (e, i)=> i);
@@ -47,7 +53,7 @@ export async function clientLoader() {
     let currentlyClicked = Array(height*width).fill(0); // stores position of clicked tiles
     let index = 0; // for assigning keys
 
-    return {ranNums, height, width, tilesClicked, matches, currentlyClicked, index};
+    return {ranNums, height, width, tilesClicked, matches, currentlyClicked, index, showtimer};
 }
 
 
@@ -56,9 +62,9 @@ export async function clientAction({
 }: Route.ClientActionArgs) {
 
     let formData = await request.formData();
-    let action = formData.get("action");
+    let action = formData.get("action") as String;
 
-    if(action === "size6") {
+    if(action.includes("size6")) {
         localStorage.setItem("height", "6");
         localStorage.setItem("width", "6");
     }
@@ -67,16 +73,24 @@ export async function clientAction({
         localStorage.setItem("width", "4");
     }
 
+    if(action!.includes("timer")) {
+        localStorage.setItem("showtimer", "flex");
+    }
+    else {
+        localStorage.setItem("showtimer", "none");
+    }
+
     window.location.reload();
 }
 
 
 export default function Home({loaderData}: Route.ComponentProps) {
 
-    let {ranNums, height, width, tilesClicked, matches, currentlyClicked, index} = loaderData;
+    let {ranNums, height, width, tilesClicked, matches, currentlyClicked, index, showtimer} = loaderData;
     const [canClickMore, setCanClickMore] = useState(true);
     const [message, setMessage] = useState("");
     const [attempts, setAttempts] = useState(0);
+    const [complete, setComplete] = useState(false);
 
     // get a row at a time of length width
     const arrayChunk = (arr: any, n: number) => {
@@ -134,6 +148,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
 
         // Have we won?
         if (matches.length === (width * height)) {
+            setComplete(true);
             setMessage("Congratulations!!!!");
         }
   }
@@ -163,12 +178,25 @@ export default function Home({loaderData}: Route.ComponentProps) {
             </div>
             <div className="block">
                 <Form method="post">
-                    <button type="submit" name="action" value="size4">Play 4x4</button>
-                    <button type="submit" name="action" value="size6">Play 6x6</button>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td className="button"><button type="submit" name="action" value="size4">Play 4x4</button></td>
+                                <td className="button"><button type="submit" name="action" value="size4-timer">Play 4x4 (timed)</button></td>
+                            </tr>
+                            <tr>
+                                <td className="button"><button type="submit" name="action" value="size6">Play 6x6</button></td>
+                                <td className="button"><button type="submit" name="action" value="size6-timer">Play 6x6 (timed)</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </Form>
             </div>
             <div className="block">{message ? message : "Find all the pairs to win."}</div>
             <div className="block">{attempts + " attempt(s)"}</div>
+            <div className="block" id="timer" style={{"display": showtimer}}>
+                <Timer start={Date.now()} complete={complete} />
+            </div>
         </div>
     );
 }

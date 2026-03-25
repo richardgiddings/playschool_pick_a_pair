@@ -7,6 +7,7 @@ A game of matching tiles. Find all the matches to win.
 Features:
 - Choose from a 4x4 or a 6x6 board
 - Shows how many attempts you took
+- Option of timed games
 
 ## Screenshots
 
@@ -15,6 +16,10 @@ Features:
 ![The 4x4 board](screenshots/the_board4x4.png?raw=true)
 
 ![The 6x6 board](screenshots/the_board6x6.png?raw=true)
+
+![The 4x4 board (timed)](screenshots/the_board4x4_timed.png?raw=true)
+
+![The 6x6 board (timed)](screenshots/the_board6x6_timed.png?raw=true)
 
 ### Found a pair
 
