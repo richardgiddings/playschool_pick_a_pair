@@ -8,7 +8,7 @@ import { Form } from 'react-router';
 export function meta({}: Route.MetaArgs) {
     return [
         { title: "Pick a Pair" },
-        { name: "description", content: "Match all the pairs to win the game." },
+        { name: "description", content: "A game of matching tiles. Match all the pairs to win the game." },
     ];
 }
 
