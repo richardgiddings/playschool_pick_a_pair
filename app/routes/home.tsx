@@ -15,32 +15,32 @@ export function meta({}: Route.MetaArgs) {
 
 export async function clientLoader() {
 
-    let height_choice = localStorage.getItem("height");
-    let width_choice = localStorage.getItem("width");
+    const height_choice: string | null = localStorage.getItem("height");
+    const width_choice: string | null = localStorage.getItem("width");
 
     // width * height must be even
-    var height = 4;
-    var width = 4;
+    let height: number = 4;
+    let width: number = 4;
     if(height_choice != null && width_choice != null) {
         height = Number(height_choice)
         width = Number(width_choice)
     }
-    const numbers = (height * width) / 2 
+    const numbers: number = (height * width) / 2 
 
-    let showtimer = localStorage.getItem("showtimer");
+    let showtimer: string | null = localStorage.getItem("showtimer");
     if(showtimer == null) {
         showtimer = "none";
     }
 
     // create array with numbers twice
-    var numsOne = Array.from({length: numbers}, (e, i)=> i);
-    var numsTwo = Array.from({length: numbers}, (e, i)=> i);
-    var nums = numsOne.concat(numsTwo);
+    const numsOne: number[] = Array.from({length: numbers}, (e, i)=> i);
+    const numsTwo: number[] = Array.from({length: numbers}, (e, i)=> i);
+    const nums: number[] = numsOne.concat(numsTwo);
 
     // randomise the nums array
-    var ranNums = [];
-    var i = nums.length;
-    var j = 0;
+    let ranNums = [] as number[];
+    let i: number = nums.length;
+    let j: number = 0;
     while (i--) {
         j = Math.floor(Math.random() * (i+1));
         ranNums.push(nums[j]);
@@ -49,9 +49,9 @@ export async function clientLoader() {
 
     // intialise other variables
     let tilesClicked = Array(); // stores the actual tiles that were clicked
-    let matches = Array(); // stores keys of tiles that have been matched
-    let currentlyClicked = Array(height*width).fill(0); // stores position of clicked tiles
-    let index = 0; // for assigning keys
+    let matches: number[] = Array(); // stores keys of tiles that have been matched
+    let currentlyClicked: number[] = Array(height*width).fill(0); // stores position of clicked tiles
+    let index: number = 0; // for assigning keys
 
     return {ranNums, height, width, tilesClicked, matches, currentlyClicked, index, showtimer};
 }
@@ -87,15 +87,15 @@ export async function clientAction({
 export default function Home({loaderData}: Route.ComponentProps) {
 
     let {ranNums, height, width, tilesClicked, matches, currentlyClicked, index, showtimer} = loaderData;
-    const [canClickMore, setCanClickMore] = useState(true);
-    const [message, setMessage] = useState("");
-    const [attempts, setAttempts] = useState(0);
-    const [complete, setComplete] = useState(false);
+    const [canClickMore, setCanClickMore] = useState<boolean>(true);
+    const [message, setMessage] = useState<string>("");
+    const [attempts, setAttempts] = useState<number>(0);
+    const [complete, setComplete] = useState<boolean>(false);
 
     // get a row at a time of length width
-    const arrayChunk = (arr: any, n: number) => {
-        const array = arr.slice();
-        const chunks = [];
+    const arrayChunk = (arr: number[], n: number) => {
+        const array: number[] = arr.slice();
+        const chunks: number[][] = [];
         while (array.length) chunks.push(array.splice(0, n));
         return chunks;
     };
