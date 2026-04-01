@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
 const Timer = (props: any) => {
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [seconds, setSeconds] = useState(0);
+    const [hours, setHours] = useState<number>(0);
+    const [minutes, setMinutes] = useState<number>(0);
+    const [seconds, setSeconds] = useState<number>(0);
 
-    const start = props.start;
-    const complete = props.complete;
+    const start: number = props.start;
+    const complete: boolean = props.complete;
 
     const getTime = (start: any) => {
-        const time =  Date.now() - start;
+        const time: number = Date.now() - start;
 
         setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
         setMinutes(Math.floor((time / 1000 / 60) % 60));
@@ -17,7 +17,7 @@ const Timer = (props: any) => {
     };
 
     useEffect(() => {
-        const interval = setInterval(() => getTime(start), 1000);
+        const interval: ReturnType<typeof setInterval> = setInterval(() => getTime(start), 1000);
         if(complete) {
             clearInterval(interval);
         }
