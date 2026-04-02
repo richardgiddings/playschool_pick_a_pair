@@ -30,6 +30,13 @@ table {
     padding-bottom: 10px;
 }
 
+.block-temp {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .block {
     padding-top: 20px;
     display: flex;

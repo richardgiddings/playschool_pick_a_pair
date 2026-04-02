@@ -156,7 +156,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
 
   return (
         <div>
-            <div className="block">
+            <div className="block-temp">
                 <span>Now at <a href="https://pickapair.co.uk">pickapair.co.uk</a></span>
             </div>
             <div className="block">
