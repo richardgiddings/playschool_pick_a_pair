@@ -15,6 +15,8 @@ export function meta({}: Route.MetaArgs) {
 
 export async function clientLoader() {
 
+    console.log(window.location.href);
+
     const height_choice: string | null = localStorage.getItem("height");
     const width_choice: string | null = localStorage.getItem("width");
 
