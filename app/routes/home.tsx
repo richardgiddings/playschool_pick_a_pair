@@ -27,11 +27,6 @@ export async function clientLoader() {
     }
     const numbers: number = (height * width) / 2 
 
-    let showtimer: string | null = localStorage.getItem("showtimer");
-    if(showtimer == null) {
-        showtimer = "none";
-    }
-
     // create array with numbers twice
     const numsOne: number[] = Array.from({length: numbers}, (e, i)=> i);
     const numsTwo: number[] = Array.from({length: numbers}, (e, i)=> i);
@@ -45,6 +40,12 @@ export async function clientLoader() {
         j = Math.floor(Math.random() * (i+1));
         ranNums.push(nums[j]);
         nums.splice(j,1);
+    }
+
+    // showing of the timer
+    let showtimer: string | null = localStorage.getItem("showtimer");
+    if(showtimer == null) {
+        showtimer = "none";
     }
 
     // intialise other variables
