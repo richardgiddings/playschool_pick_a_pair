@@ -15,8 +15,6 @@ export function meta({}: Route.MetaArgs) {
 
 export async function clientLoader() {
 
-    console.log(window.location.href);
-
     const height_choice: string | null = localStorage.getItem("height");
     const width_choice: string | null = localStorage.getItem("width");
 
@@ -158,9 +156,11 @@ export default function Home({loaderData}: Route.ComponentProps) {
 
   return (
         <div>
+            {window.location.href === "https://playschool-pick-a-pair.onrender.com/" && 
             <div className="block-temp">
                 <span>Now at <a href="https://pickapair.co.uk">pickapair.co.uk</a></span>
             </div>
+            }
             <div className="block">
                 <table>
                     <tbody>
