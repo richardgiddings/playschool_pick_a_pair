@@ -157,6 +157,9 @@ export default function Home({loaderData}: Route.ComponentProps) {
   return (
         <div>
             <div className="block">
+                <span>Now at <a href="https://pickapair.co.uk">pickapair.co.uk</a></span>
+            </div>
+            <div className="block">
                 <table>
                     <tbody>
                         { arrayChunk([...ranNums], width).map((row, i) => (
