@@ -25,21 +25,32 @@ export async function clientLoader() {
         height = Number(height_choice)
         width = Number(width_choice)
     }
-    const numbers: number = (height * width) / 2 
+    const number_of_unique_tiles: number = (height * width) / 2 
 
-    // create array with numbers twice
-    const numsOne: number[] = Array.from({length: numbers}, (e, i)=> i);
-    const numsTwo: number[] = Array.from({length: numbers}, (e, i)=> i);
-    const nums: number[] = numsOne.concat(numsTwo);
+    // Randomly choose numbers or letters as tiles 
+    const versions: number = 2;
+    const version: number = Math.floor(Math.random() * versions);
+    var tiles: any[] = Array();
+    if (version === 1) {
+        const nums: number[] = Array.from({length: number_of_unique_tiles}, (e, i)=> i);
+        tiles = nums.concat(nums);
+    }
+    else {
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        const letters_to_use = alphabet.slice(0, number_of_unique_tiles);
+        tiles = letters_to_use.concat(letters_to_use);
+    }
+    // Add something like this as a version 3 sometime?
+    // const alphabet = '!"£$%^&*()+{}[]@#;\<>?'.split('');
 
-    // randomise the nums array
-    let ranNums = [] as number[];
-    let i: number = nums.length;
+    // randomise the tiles array
+    let ranTiles: any = [];
+    let i: number = tiles.length;
     let j: number = 0;
     while (i--) {
         j = Math.floor(Math.random() * (i+1));
-        ranNums.push(nums[j]);
-        nums.splice(j,1);
+        ranTiles.push(tiles[j]);
+        tiles.splice(j,1);
     }
 
     // showing of the timer
@@ -54,7 +65,7 @@ export async function clientLoader() {
     let currentlyClicked: number[] = Array(height*width).fill(0); // stores position of clicked tiles
     let index: number = 0; // for assigning keys
 
-    return {ranNums, height, width, tilesClicked, matches, currentlyClicked, index, showtimer};
+    return {ranTiles, height, width, tilesClicked, matches, currentlyClicked, index, showtimer};
 }
 
 
@@ -87,7 +98,7 @@ export async function clientAction({
 
 export default function Home({loaderData}: Route.ComponentProps) {
 
-    let {ranNums, height, width, tilesClicked, matches, currentlyClicked, index, showtimer} = loaderData;
+    let {ranTiles, height, width, tilesClicked, matches, currentlyClicked, index, showtimer} = loaderData;
     const [canClickMore, setCanClickMore] = useState<boolean>(true);
     const [message, setMessage] = useState<string>("");
     const [attempts, setAttempts] = useState<number>(0);
@@ -165,7 +176,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
             <div className="block">
                 <table>
                     <tbody>
-                        { arrayChunk([...ranNums], width).map((row, i) => (
+                        { arrayChunk([...ranTiles], width).map((row, i) => (
                         <tr key={i}>
                             {row.map((col: number, i: number) => (
                             <td key={index}>

@@ -8,6 +8,7 @@ Features:
 - Choose from a 4x4 or a 6x6 board
 - Shows how many attempts you took
 - Option of timed games
+- Randomly chooses letters or numbers for the game
 
 ## Screenshots
 
