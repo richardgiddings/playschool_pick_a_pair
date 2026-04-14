@@ -6,7 +6,7 @@ const Timer = (props: any) => {
     const [seconds, setSeconds] = useState<number>(0);
 
     const start: number = props.start;
-    const complete: boolean = props.complete;
+    const status: string = props.status;
 
     const getTime = (start: any) => {
         const time: number = Date.now() - start;
@@ -17,12 +17,14 @@ const Timer = (props: any) => {
     };
 
     useEffect(() => {
-        const interval: ReturnType<typeof setInterval> = setInterval(() => getTime(start), 1000);
-        if(complete) {
-            clearInterval(interval);
+        if(status != "initialised") {
+            const interval: ReturnType<typeof setInterval> = setInterval(() => getTime(start), 1000);
+            if(status === "complete") {
+                clearInterval(interval);
+            }
+            return () => clearInterval(interval);
         }
-        return () => clearInterval(interval);
-    }, [complete]);
+    }, [status]);
 
     return (
         <div role="timer">

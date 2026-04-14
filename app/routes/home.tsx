@@ -102,7 +102,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
     const [canClickMore, setCanClickMore] = useState<boolean>(true);
     const [message, setMessage] = useState<string>("");
     const [attempts, setAttempts] = useState<number>(0);
-    const [complete, setComplete] = useState<boolean>(false);
+    const [status, setStatus] = useState<string>("initialised");
 
     // get a row at a time of length width
     const arrayChunk = (arr: number[], n: number) => {
@@ -128,6 +128,8 @@ export default function Home({loaderData}: Route.ComponentProps) {
         if(matches.includes(keyval.key)) {
             return
         }
+
+        setStatus("started");
         
         // mark a tile as clicked
         if(currentlyClicked[keyval.key] == 0 && tilesClicked.length < 2) {
@@ -160,7 +162,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
 
         // Have we won?
         if (matches.length === (width * height)) {
-            setComplete(true);
+            setStatus("complete");
             setMessage("Congratulations!!!!");
         }
   }
@@ -212,7 +214,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
             <div className="block">{message ? message : "Find all the pairs to win."}</div>
             <div className="block">{attempts + " attempt(s)"}</div>
             <div className="block" id="timer" style={{"display": showtimer}}>
-                <Timer start={Date.now()} complete={complete} />
+                <Timer start={Date.now()} status={status} />
             </div>
         </div>
     );
