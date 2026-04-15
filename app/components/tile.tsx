@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function Tile(props: any) {
+export default function Tile(props: any) {
 
     const value: number = props.tileProps.value;
     const tileIndex: number = props.tileProps.tileIndex;

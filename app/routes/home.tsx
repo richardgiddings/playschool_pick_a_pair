@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { Tile } from "../components/tile";
+import Tile from "../components/tile";
 import Timer from "../components/timer";
 
 import { useState } from 'react';
