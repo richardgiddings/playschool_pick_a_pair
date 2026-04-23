@@ -7,7 +7,7 @@ import { Form } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
     return [
-        { title: "Pick a Pair" },
+        { title: "Pick a Pair - a matching tiles game" },
         { name: "description", content: "A game of matching tiles. Match all the pairs to win the game." },
     ];
 }
@@ -211,7 +211,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
                     </table>
                 </Form>
             </div>
-            <div className="block">{message ? message : "Find all the pairs to win."}</div>
+            <div className="block">{message ? message : "Find all the pairs to win"}</div>
             <div className="block">{attempts + " attempt(s)"}</div>
             <div className="block" id="timer" style={{"display": showtimer}}>
                 <Timer start={Date.now()} status={status} />
