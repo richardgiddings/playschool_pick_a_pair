@@ -1,6 +1,7 @@
 import type { Route } from "./+types/home";
 import Tile from "../components/tile";
 import Timer from "../components/timer";
+import Footer from "../components/footer";
 
 import { useState } from 'react';
 import { Form } from 'react-router';
@@ -216,6 +217,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
             <div className="block" id="timer" style={{"display": showtimer}}>
                 <Timer start={Date.now()} status={status} />
             </div>
+            <div className="block"><Footer /></div>
         </div>
     );
 }
