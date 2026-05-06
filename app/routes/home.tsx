@@ -14,6 +14,15 @@ export function meta({}: Route.MetaArgs) {
 }
 
 
+interface GameTile {
+    value: number|string;
+}
+
+interface ClickedTile extends GameTile {
+    key: number;
+}
+
+
 export async function clientLoader() {
 
     const height_choice: string | null = localStorage.getItem("height");
@@ -31,21 +40,27 @@ export async function clientLoader() {
     // Randomly choose numbers or letters as tiles 
     const versions: number = 2;
     const version: number = Math.floor(Math.random() * versions);
-    var tiles: any[] = Array();
+    var tiles: GameTile[] = Array();
     if (version === 1) {
-        const nums: number[] = Array.from({length: number_of_unique_tiles}, (e, i)=> i);
-        tiles = nums.concat(nums);
+        let nums: number[] = Array.from({length: number_of_unique_tiles}, (e, i)=> i);
+        nums = nums.concat(nums);
+        for(let k = 0; k < nums.length; k++) {
+            tiles.push({value: nums[k]});
+        }
     }
     else {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-        const letters_to_use = alphabet.slice(0, number_of_unique_tiles);
-        tiles = letters_to_use.concat(letters_to_use);
+        let letters_to_use: string[] = alphabet.slice(0, number_of_unique_tiles);
+        letters_to_use = letters_to_use.concat(letters_to_use);
+        for(let k = 0; k < letters_to_use.length; k++) {
+            tiles.push({value: letters_to_use[k]});
+        }
     }
     // Add something like this as a version 3 sometime?
     // const alphabet = '!"£$%^&*()+{}[]@#;\<>?'.split('');
 
     // randomise the tiles array
-    let ranTiles: any = [];
+    let ranTiles: GameTile[] = [];
     let i: number = tiles.length;
     let j: number = 0;
     while (i--) {
@@ -106,9 +121,9 @@ export default function Home({loaderData}: Route.ComponentProps) {
     const [status, setStatus] = useState<string>("initialised");
 
     // get a row at a time of length width
-    const arrayChunk = (arr: number[], n: number) => {
-        const array: number[] = arr.slice();
-        const chunks: number[][] = [];
+    const arrayChunk = (arr: GameTile[], n: number) => {
+        const array: GameTile[] = arr.slice();
+        const chunks: GameTile[][] = [];
         while (array.length) chunks.push(array.splice(0, n));
         return chunks;
     };
@@ -124,7 +139,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
         }
     }
 
-    const tileClicked = (keyval: any) => {
+    const tileClicked = (keyval: ClickedTile) => {
 
         if(matches.includes(keyval.key)) {
             return
@@ -181,12 +196,12 @@ export default function Home({loaderData}: Route.ComponentProps) {
                     <tbody>
                         { arrayChunk([...ranTiles], width).map((row, i) => (
                         <tr key={i}>
-                            {row.map((col: number, i: number) => (
+                            {row.map((col: GameTile) => (
                             <td key={index}>
                                 <Tile key={index++} 
                                       matches={matches} 
                                       canClickMore={canClickMore} 
-                                      tileProps={{ tileIndex: index, value: col }} 
+                                      tileProps={{ tileIndex: index, value: col.value }} 
                                       tileClicked={tileClicked} 
                                       tileReset={tileReset} />
                             </td>

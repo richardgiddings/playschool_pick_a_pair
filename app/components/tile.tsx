@@ -1,8 +1,27 @@
 import { useState, useEffect } from 'react';
 
-export default function Tile(props: any) {
 
-    const value: number = props.tileProps.value;
+interface TileProps {
+    tileIndex: number;
+    value: number|string;
+}
+
+interface TileProperties {
+    tileProps: TileProps;
+}
+
+interface PassedProps extends TileProperties {
+    key: number;
+    matches: number[];
+    canClickMore: boolean;
+    tileClicked: Function;
+    tileReset: Function;
+}
+
+
+export default function Tile(props: PassedProps) {
+
+    const value: number|string = props.tileProps.value;
     const tileIndex: number = props.tileProps.tileIndex;
     const matches: number[] = props.matches;
     const canClickMore: boolean = props.canClickMore;
@@ -24,7 +43,7 @@ export default function Tile(props: any) {
     }, [canClickMore])
 
     // clicking of a tile
-    const clicked = (key: number, value: number) => {
+    const clicked = (key: number, value: number|string) => {
         if(!show && canClickMore && !matches.includes(tileIndex)) {
             props.tileClicked({key: key, value: value});
             setShow(!show);

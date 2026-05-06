@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 
-export default function Timer(props: any) {
+
+interface TimerProps {
+    start: number;
+    status: string;
+}
+
+
+export default function Timer(props: TimerProps) {
     const [hours, setHours] = useState<number>(0);
     const [minutes, setMinutes] = useState<number>(0);
     const [seconds, setSeconds] = useState<number>(0);
@@ -8,7 +15,7 @@ export default function Timer(props: any) {
     const start: number = props.start;
     const status: string = props.status;
 
-    const getTime = (start: any) => {
+    const getTime = (start: number) => {
         const time: number = Date.now() - start;
 
         setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
